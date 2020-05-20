@@ -60,5 +60,18 @@ module.exports = {
    } catch (error) {
      next(error)
    }
+  },
+  async delete(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      await knex('projects')
+      .where({ id })
+      .del()
+
+      return res.send(201);
+    } catch (error) {
+      next(error)
+    }
   }
 };
