@@ -14,6 +14,7 @@ routes
   // Projects
   .get('/projects', ProjectController.index)
   .post('/projects', ProjectController.create)
+  .put('/projects/:id', ProjectController.update)
 
 
 module.exports = routes;

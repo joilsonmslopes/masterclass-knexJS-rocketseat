@@ -17,7 +17,7 @@ module.exports = {
           .join('users', 'users.id', '=', 'projects.user_id')
           .select('projects.*', 'users.username')
           .where('users.deleted_at', null)
-
+        
           countObj
           .where({ user_id })
       }
@@ -46,5 +46,19 @@ module.exports = {
     } catch (error) {
       next(error)
     }
+  },
+  async update(req, res, next) {
+   try {
+    const { title } = req.body;
+    const { id } = req.params;
+
+    await knex('projects')
+    .update({ title })
+    .where({ id })
+
+    return res.send();
+   } catch (error) {
+     next(error)
+   }
   }
 };
