@@ -12,7 +12,7 @@
 - knex
 - pg
 
-## Dependências adicionadas para pós término da masterclass
+## Dependência adicionada após término da masterclass
 - express-validator
 
 Como exercício, completei as rotas que faltavam (Update e Delete).
