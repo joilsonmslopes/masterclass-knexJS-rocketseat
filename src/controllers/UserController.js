@@ -1,4 +1,5 @@
 const knex = require("../database");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   async index(req, res) {
@@ -10,10 +11,16 @@ module.exports = {
   async create(req, res,next) {
 
     try {
-      const { username } = req.body;
+      const { username, email } = req.body;
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array()})
+      }
       
       await knex('users').insert({
-        username
+        username,
+        email
       });
 
       return res.status(201).send();
@@ -23,11 +30,11 @@ module.exports = {
   },
   async update(req, res, next) {
     try {
-      const { username } = req.body;
+      const { username, email } = req.body;
       const { id } = req.params;
 
       await knex('users')
-      .update({ username })
+      .update({ username, email })
       .where({ id })
 
       return res.send();
